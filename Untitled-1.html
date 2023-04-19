@@ -1,0 +1,7 @@
+<!DOCTYPE html><html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<style type='text/css'>
+    * {
+        margin: 10pt;
+    }
+</style>
+</head><body><script>let t = new Date(); fetch('/date', { method: 'POST',  headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},body: JSON.stringify({ 'hrs': t.getHours(), 'mins': t.getMinutes(), 'sec': t.getSeconds()})}).then(response => console.log(response))</script><h1><center>Gate Light</center></h1><br><label for='appt'>ON time  :</label><input type='time' id='on' name='appt' value='" + OnTimeHrs + ":" + OnTimeMins + "'><br><label for='appt'>OFF time :</label><input type='time' id='off' name='appt' value='" + OffTimeHrs + ":" + OffTimeMins + "'><br><button onclick='sendTimings()'>Update On/Off Timing</button><script>function sendTimings(){var on = document.getElementById('on').value.split(':');var off = document.getElementById('off').value.split(':');fetch('/setOnOffTiming', {method: 'POST',headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},body: JSON.stringify({ 'OnTimeHrs': on[0],'OnTimeMins': on[1],'OffTimeHrs': off[0],'OffTimeMins': off[1]})}).then(response => console.log(response))}</script></body></html>
