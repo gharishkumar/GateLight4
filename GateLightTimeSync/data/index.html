@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClockPicker</title>
+<link rel="stylesheet" type="text/css" href="./bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="./bootstrap-clockpicker.min.css">
+<style type="text/css">
+.input-group {
+	width: 110px;
+	margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+<h1><center>GateLight</center></h1>
+<div class="container">
+	<div class="form-group">
+		<h4>ON time :</h4>
+		<div class="input-group clockpicker" data-placement="right" data-align="top" data-donetext="Done">
+			<input type="text" class="form-control" id="onTime" value="18:00">
+			<span class="input-group-addon">
+				⌚
+			</span>
+		</div>
+		<h4>OFF time :</h4>
+		<div class="input-group clockpicker" data-placement="right" data-align="top" data-donetext="Done">
+			<input type="text" class="form-control" id="offTime" value="20:00">
+			<span class="input-group-addon">
+				⌚
+			</span>
+		</div>
+		<br>
+		<button type="button" class="btn btn-default" id="setTime">Update On/Off Timings</button>
+	</div>
+</div>
+
+<script type="text/javascript" src="./jquery.min.js"></script>
+<script type="text/javascript" src="./bootstrap-clockpicker.min.js"></script>
+<script type="text/javascript">
+$('.clockpicker').clockpicker()
+	.find('input').change(function(){
+		console.log(this.value);
+});
+$('#setTime').click(function(e){
+	fetch('/setOnOffTiming', {
+		method: 'POST',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ 	"OnTimeHrs"	: 11,
+								"OnTimeMins": 53,
+								"OffTimeHrs": 11,
+								"OffTimeMins": 54})
+	}).then(response => console.log(response))
+});
+   
+</script>
+
+</body></html>
